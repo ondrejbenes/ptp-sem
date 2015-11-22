@@ -1,39 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Sem_Benes.Model;
 
 namespace Sem_Benes.API
 {
-    class CompanyServiceImpl : CompanyService
+    class CompanyServiceImpl : ICompanyService
     {
-        ICommonDAO<Company> Dao;
+        private ICompanyDao _dao;
 
-        public CompanyServiceImpl(ICommonDAO<Company> Dao)
+        public CompanyServiceImpl(ICompanyDao dao)
         {
-            this.Dao = Dao;
+            _dao = dao;
         }
 
         public IEnumerable<Company> FindAllCompanies()
         {
-            return Dao.FindAll();
+            return _dao.FindAll();
         }
 
-        public Company FindCompany(long CompanyId)
+        public Company FindCompany(long companyId)
         {
-            return Dao.Find(CompanyId);
+            return _dao.Find(companyId);
         }
 
-        public Company RemoveCompany(Company Company)
+        public Company RemoveCompany(Company company)
         {
-            return Dao.Remove(Company);
+            return _dao.Remove(company);
         }
 
-        public Company SaveCompany(Company Company)
+        public Company SaveCompany(Company company)
         {
-            return Dao.Save(Company);
+            return _dao.Save(company);
         }
     }
 }

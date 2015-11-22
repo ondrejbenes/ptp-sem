@@ -1,0 +1,27 @@
+﻿<Window x:Class="Sem_Benes.AddUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Přidat uživatele" Height="265" Width="297" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Name="LblUserName" Content="Uživatelské jméno:" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Bottom" />
+        <Label Grid.Row="1" Name="LblPassword" Content="Heslo:" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" />
+        <Label Grid.Row="2" Name="LblFirstName" Content="Jméno:" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" />
+        <Label Grid.Row="3" Name="LblLastName" Content="Příjmení:" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" />
+        <Label Grid.Row="4" Name="LblIsAdmin" Content="Admin:" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" />
+        <TextBox Grid.Row="0" Name="TxbUserName" HorizontalAlignment="Left" Height="25" Margin="150,0,0,0" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="113"/>
+        <PasswordBox Grid.Row="1" Name="PsbPassword" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Height="25" Width="113"/>
+        <TextBox Grid.Row="2" Name="TxbFirstName" HorizontalAlignment="Left" Height="25" Margin="150,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+        <TextBox Grid.Row="3" Name="TxbLastName" HorizontalAlignment="Left" Height="25" Margin="150,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+        <CheckBox Grid.Row="4" Name="ChbIsAdmin" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Center" Width="113"/>
+        <Button Name="btnDialogOk" Click="btnDialogOk_Click"  Grid.Row="5" IsDefault="True" Margin="30,0,0,0" Content="OK" Height="25" Width="100" HorizontalAlignment="Left"/>
+        <Button Grid.Row="5" IsCancel="True" Margin="0,0,30,0" Content="Zrušit" Height="25" Width="100" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>

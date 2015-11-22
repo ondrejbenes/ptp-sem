@@ -1,39 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Sem_Benes.Model;
 
 namespace Sem_Benes.API
 {
-    class UserServiceImpl : UserService
+    class UserServiceImpl : IUserService
     {
-        ICommonDAO<User> Dao;
+        IUserDao _dao;
 
-        public UserServiceImpl(ICommonDAO<User> Dao)
+        public UserServiceImpl(IUserDao dao)
         {
-            this.Dao = Dao;
+            this._dao = dao;
         }
 
         public IEnumerable<User> FindAllUsers()
         {
-            return Dao.FindAll();
+            return _dao.FindAll();
         }
 
-        public User FindUser(long UserId)
+        public User FindUserById(long userId)
         {
-            return Dao.Find(UserId);
+            return _dao.Find(userId);
         }
 
-        public User RemoveUser(User User)
+        public User FindUserByUsername(string username)
         {
-            return Dao.Remove(User);
+            return _dao.FindByUsername(username);
         }
 
-        public User SaveUser(User User)
+        public User RemoveUser(User user)
         {
-            return Dao.Save(User);
+            return _dao.Remove(user);
+        }
+
+        public User SaveUser(User user)
+        {
+            return _dao.Save(user);
         }
     }
 }

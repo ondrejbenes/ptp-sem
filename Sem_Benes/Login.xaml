@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sem_Benes"
         mc:Ignorable="d"
-        Title="Login" Height="236.709" Width="396.203">
+        Title="Login" Height="250.709" Width="396.203" Closing="Login_OnClosing">
     <Grid>
-        <Label x:Name="label" Content="Přihlášení" FontSize="24" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.743,-0.381"/>
-        <Label x:Name="label1" Content="Uživatelské jméno" FontSize="18" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.092,0.8"/>
-        <Label x:Name="label1_Copy" Content="Heslo" FontSize="18" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.092,0.8"/>
-        <Button x:Name="button" FontSize="18" Content="Přihlásit" HorizontalAlignment="Left" Margin="52,151,0,0" VerticalAlignment="Top" Width="111" Height="46"/>
-        <Button x:Name="button1" FontSize="18" Content="Zrušit" HorizontalAlignment="Left" Margin="214,151,0,0" VerticalAlignment="Top" Width="113" Height="46"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="214,99,0,0" VerticalAlignment="Top" Height="34" Width="113"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="34" Margin="214,57,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="113"/>
-
+        <Label x:Name="Label" Content="Přihlášení" FontSize="24" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.743,-0.381"/>
+        <Label Name="LblUserName" Content="Uživatelské jméno" FontSize="18" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.092,0.8"/>
+        <Label Name="LblPassword" Content="Heslo" FontSize="18" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.092,0.8"/>
+        <TextBox Text="admin"  Name="TxbUserName" HorizontalAlignment="Left" Height="34" Margin="214,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+        <PasswordBox Password="admin" Name="PsbPassword" HorizontalAlignment="Left" Margin="214,99,0,0" VerticalAlignment="Top" Height="34" Width="113"/>
+        <Button Click="btn_Login_Click"  Name="BtnLogin" FontSize="18" Content="Přihlásit" HorizontalAlignment="Left" Margin="52,175,0,0" VerticalAlignment="Top" Width="111" Height="31"/>
+        <Button Click="btn_Cancel_Click" Name="BtnCancel" FontSize="18" Content="Zrušit" HorizontalAlignment="Left" Margin="214,175,0,0" VerticalAlignment="Top" Width="113" Height="31"/>
+        <Label Name="LblError" Content="" HorizontalAlignment="Left" Margin="52,144,0,0" VerticalAlignment="Top" Width="275"/>
     </Grid>
 </Window>

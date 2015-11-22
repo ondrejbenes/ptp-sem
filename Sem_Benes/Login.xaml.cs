@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sem_Benes.API;
+using System;
+using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Sem_Benes
 {
@@ -19,9 +10,64 @@ namespace Sem_Benes
     /// </summary>
     public partial class Login : Window
     {
-        public Login()
+        private bool _loggedIn;
+
+        private IUserService _userService;
+
+        private readonly MainWindow _parentWindow;
+
+        public Login(MainWindow parentWindow)
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            _parentWindow = parentWindow;
+            _userService = new UserServiceImpl(UserMemoryDao.Get());
+        }
+
+        private void btn_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void btn_Login_Click(object sender, RoutedEventArgs e)
+        {
+            if (TxbUserName.Text == String.Empty && PsbPassword.Password == String.Empty)
+            {
+                LblError.Content = "Zadejte uživatelské jméno a heslo";
+                return;
+            }
+            if (TxbUserName.Text == String.Empty)
+            {
+                LblError.Content = "Zadejte uživatelské jméno";
+                return;
+            }
+            if (PsbPassword.Password == String.Empty)
+            {
+                LblError.Content = "Zadejte heslo";
+                return;
+            }
+            var user = _userService.FindUserByUsername(TxbUserName.Text);
+            if (user != null)
+            {
+                if (PasswordHash.PasswordHash.ValidatePassword(PsbPassword.Password, user.Password))
+                {
+                    _parentWindow.Visibility = Visibility.Visible;
+                    _loggedIn = true;
+                    LoginManager.LoggedInUser = user;
+                    _parentWindow.ShowContent();
+                    Close();
+                }
+                else
+                    LblError.Content = "Špatné heslo";
+            }
+            else
+                LblError.Content = "Neznámý uživatel";
+        }
+
+        private void Login_OnClosing(object sender, CancelEventArgs e)
+        {
+            if(!_loggedIn)
+                Application.Current.Shutdown();
         }
     }
 }

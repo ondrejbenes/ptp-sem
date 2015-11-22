@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Sem_Benes.API
 {
-    interface ICommonDAO<T>
+    interface ICommonDao<T>
     {
-        T Find(long Id);
+        T Find(long id);
 
         IEnumerable<T> FindAll();
 
-        T Save(T Entity);
+        T Save(T entity);
         
-        T Remove(T Entity);
+        T Remove(T entity);
     }
 }

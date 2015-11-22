@@ -1,0 +1,44 @@
+﻿<Window x:Class="Sem_Benes.UsersManagment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Správa uživatelů" Height="500" Width="600"
+        Closing="UsersManagment_OnClosing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" MaxHeight="25" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <DockPanel LastChildFill="False">
+            <Menu Height="25" VerticalAlignment="Top" DockPanel.Dock="Top" Margin="0,0,0,0">
+                <MenuItem Header="Přidat uživatele" Click="MenuItem_OnClick" />
+            </Menu>
+        </DockPanel>
+        <DockPanel Grid.Row="1" VerticalAlignment="Stretch" Height="Auto">
+            <DataGrid Name="dgr_Users" DockPanel.Dock="Top" VerticalAlignment="Stretch" Height="Auto" Width="Auto"
+                      Margin="10,10,10,10"
+                      CanUserDeleteRows="True" CanUserAddRows="False" AutoGenerateColumns="False"
+                      PreviewKeyDown="Dgr_Users_OnPreviewKeyDown">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Přihlašovací jméno" Binding="{Binding Path=Username}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Jméno" Binding="{Binding Path=FirstName}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Příjmení" Binding="{Binding Path=LastName}" IsReadOnly="True" />
+                    <DataGridCheckBoxColumn Header="Admin" Binding="{Binding Path=IsAdmin}">
+                        <DataGridCheckBoxColumn.CellStyle>
+                            <Style>
+                                <EventSetter Event="CheckBox.Checked" Handler="OnIsAdminChanged" />
+                                <EventSetter Event="CheckBox.Unchecked" Handler="OnIsAdminChanged" />
+                            </Style>
+                        </DataGridCheckBoxColumn.CellStyle>
+                    </DataGridCheckBoxColumn>
+                    <DataGridTemplateColumn Header="Změna hesla">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="btn_ChangePassword" Click="Btn_ChangePassword_OnClick">Změnit heslo</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</Window>

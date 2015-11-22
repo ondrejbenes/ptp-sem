@@ -5,8 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sem_Benes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+        Title="Firmy" Height="574" Width="1235" Loaded="Window_Loaded" Closing="MainWindow_OnClosing" MinWidth="1000" MinHeight="500">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" MaxHeight="25"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <DockPanel LastChildFill="False">
+            <Menu Height="25" VerticalAlignment="Top" DockPanel.Dock="Top" Margin="0,0,0,0">
+                <MenuItem Header="Soubor">
+                    <MenuItem Header="Uložit" Name="mnu_Save" Click="Mnu_Save_OnClick"/>
+                    <Separator/>
+                    <MenuItem Header="Zavřít" Name="mnu_Close" Click="Mnu_Close_OnClick"/>
+                </MenuItem>
+                <MenuItem Name ="mnu_Administration" Header="Administrace">
+                    <MenuItem Header="Spravovat uživatele" Name="mnu_ManageUsers" Click="Mnu_ManageUsers_OnClick"/>
+                    <MenuItem Header="Exportovat XML" Name="mnu_ExportXml" Click="Mnu_ExportXml_OnClick"/>
+                </MenuItem>
+                <MenuItem Header="Nápověda">
+                    <MenuItem Header="O aplikaci" Name="mnu_Help" Click="Mnu_Help_OnClick"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <Label Name="lbl_loggedUser" Grid.Row ="0" Content="Přihlášen jako: " VerticalAlignment="Top" HorizontalAlignment="Right"/>
+        <DockPanel Grid.Row="1">
+            <GroupBox Header="Filtr" Height="Auto" Margin="10,10,10,0" VerticalAlignment="Top" DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+                <Label Margin="3" VerticalContentAlignment="Center">Hledaný text:</Label>
+                <TextBox Name="txb_Filter" Height="25" Margin="3" VerticalContentAlignment="Center" Width="276" TextChanged="txb_Filter_TextChanged"></TextBox>
+                <Label VerticalContentAlignment="Center" Margin="50,10,10,10">Hledat v:</Label>
+                <ComboBox Name="cmb_Filter"  Width="120" Height="25" SelectedIndex="0">
+                    <ComboBoxItem Content="Názvu firmy"/>
+                    <ComboBoxItem Content="Adrese"/>
+                    <ComboBoxItem Content="Oboru činnosti"/>
+                </ComboBox>
+                <WrapPanel Orientation="Horizontal" Margin="50,10,10,10">
+                    <WrapPanel Orientation="Vertical">
+                        <RadioButton Name="rbt_Exact" Content="Přesná shoda" Height="17" GroupName="grp_Match" IsChecked="True"/>
+                        <RadioButton Name="rbt_Contains" Content="Obsahuje" Height="17" GroupName="grp_Match"/>
+                    </WrapPanel>
+                    <WrapPanel Orientation="Vertical" Margin="25,0,0,0">
+                        <RadioButton Name="rbt_StartsWith" Content="Začiná na" Height="17" GroupName="grp_Match"/>
+                        <RadioButton Name="rbt_EndsWith" Content="Končí na" Height="17" GroupName="grp_Match"/>
+                    </WrapPanel>
+                </WrapPanel>
+            </StackPanel>
+        </GroupBox>
+            </DockPanel>
+        <DockPanel Grid.Row="2" VerticalAlignment="Stretch" Height="Auto">
+            <DataGrid Name="dgr_Companies" Margin="10,10,10,10" VerticalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto" Width="Auto"
+                  CanUserAddRows="True" CanUserDeleteRows="True" RowEditEnding="Dgr_Companies_OnRowEditEnding" PreviewKeyDown="Dgr_Companies_OnPreviewKeyDown">
+            </DataGrid>
+        </DockPanel>
     </Grid>
 </Window>

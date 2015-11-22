@@ -1,66 +1,93 @@
 ﻿using Sem_Benes.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Sem_Benes.API
 {
-    class CompanyMemoryDAO : ICommonDAO<Company>, IDisposable
+    class CompanyMemoryDao : ICompanyDao
     {
-        private static readonly string fileName = "companies.bin";
+        private const string FileName = "companies.bin";
 
-        private Dictionary<long, Company> Companies;
+        private Dictionary<long, Company> _companies;
 
-        public CompanyMemoryDAO()
+        private static CompanyMemoryDao _instance;
+
+        public static CompanyMemoryDao Get()
         {
-            Companies = loadCompaniesFromFile();
+            return _instance ?? (_instance = new CompanyMemoryDao());
         }
 
-        private Dictionary<long, Company> loadCompaniesFromFile()
+        private CompanyMemoryDao()
         {
-            throw new NotImplementedException();
+           LoadCompaniesFromFile();
         }
 
-        private void saveCompaniesToFile()
+        public Company Find(long id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Company Find(long Id)
-        {
-            if (Companies.ContainsKey(Id))
-                return Companies[Id];
-            else
-                return null;
+            return _companies[id];
         }
 
         public IEnumerable<Company> FindAll()
         {
-            return new List<Company>(Companies.Values);
+            return new List<Company>(_companies.Values);
         }
 
-        public Company Remove(Company Entity)
+        public Company Remove(Company entity)
         {
-            if (Companies.ContainsKey(Entity.Id))
+            if (!_companies.ContainsKey(entity.Id)) return null;
+            var ret = _companies[entity.Id];
+            _companies.Remove(ret.Id);
+            return ret;
+        }
+
+        public Company Save(Company entity)
+        {
+            if (entity.Id == -1 || !_companies.ContainsKey(entity.Id))
             {
-                var ret = Companies[Entity.Id];
-                Companies.Remove(ret.Id);
-                return ret;
+                var nextId = _companies.Count == 0 ? 0 : _companies.Keys.Max() + 1;
+                entity.Id = nextId;
+                _companies.Add(nextId, entity);
             }
             else
-                return null;
+                _companies[entity.Id] = new Company(entity.Ico, entity.Dic, entity.Address, entity.Name, entity.BusinessType);
+            return _companies[entity.Id];
         }
 
-        public Company Save(Company Entity)
+        private void LoadCompaniesFromFile()
         {
-            throw new NotImplementedException();
+            using (Stream stream = File.Open(FileName, FileMode.OpenOrCreate))
+            {
+                var formatter = new BinaryFormatter();
+                try
+                {
+                    _companies = (Dictionary<long, Company>)formatter.Deserialize(stream);
+                }
+                catch (SerializationException e)
+                {
+                    Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
+                    _companies = new Dictionary<long, Company>();
+                }
+            }
         }
 
-        public void Dispose()
+        public void SaveToFile()
         {
-            saveCompaniesToFile();
+            using (Stream stream = File.Open(FileName, FileMode.Truncate))
+            {
+                var formatter = new BinaryFormatter();
+                try
+                {
+                    formatter.Serialize(stream, _companies);
+                }
+                catch (SerializationException e)
+                {
+                    Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+                }
+            }
         }
     }
 }
