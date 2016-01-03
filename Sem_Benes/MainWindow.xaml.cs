@@ -10,6 +10,7 @@ using System.Windows.Input;
 using Microsoft.Win32;
 using Sem_Benes.API;
 using Sem_Benes.Logic;
+using Sem_Benes.Test;
 
 namespace Sem_Benes
 {

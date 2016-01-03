@@ -29,7 +29,7 @@ namespace Sem_Benes.Test
             var companyMemoryDao = CompanyMemoryDao.Get();
             var companyService = new CompanyServiceImpl(companyMemoryDao);
 
-            var testCompany1 = new Company(00029947, string.Empty, "Nad stadionem 100, Náchod, 13489, ČR", "Výrobní družstvo invalidů", "Textilní výroba") { Id = 0 };
+            var testCompany1 = new Company(25596641, string.Empty, "Nad stadionem 100, Praha 1, 13489, ČR", "Výrobní družstvo invalidů", "Textilní výroba") { Id = 0 };
             var testCompany2 = new Company(27684555, "CZ27684555", "Náměstí T. G. Masaryka 1280, Zlín, 76001, ČR", "Allegro Group CZ", "Reklamní poradenství") { Id = 1 };
             var testCompany3 = new Company(15415422, "CZ1234567899", "Modrá 3, Praha 5, 15000, ČR", "CzechEl", "Výrobce elektro") { Id = 2 };
             

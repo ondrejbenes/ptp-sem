@@ -11,9 +11,11 @@ namespace Sem_Benes.Logic
             var sum = 0;
             for (int vaha = 8; vaha > 1; vaha--)
             {
-                sum += Convert.ToInt32(icoString.Substring(icoString.Length - vaha, 1));
+                sum += vaha * Convert.ToInt32(icoString.Substring(icoString.Length - vaha, 1));
             }
-            return sum%11 == 0;
+            var kontrolniCislice = (11 - sum % 11) % 10;
+            var lastDigit = Convert.ToInt32(icoString.Substring(7, 1));
+            return kontrolniCislice == lastDigit;
         }
     }
 }
